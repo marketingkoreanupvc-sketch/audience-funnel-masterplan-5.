@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#0F172A" />
+  <meta name="description" content="دليل عملي تفاعلي لبناء قمع جمهور إعلانات Meta وتوزيع الميزانية وخطة تنفيذ 30 يوماً." />
+  <title>قمع الجمهور الاحترافي | Audience Funnel Masterplan</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&display=swap');
+    :root {
+      --navy: #0F172A;
+      --navy-light: #1E293B;
+      --gold: #F59E0B;
+      --gold-light: #FBBF24;
+      --cold: #2563EB;
+      --warm: #F97316;
+      --hot: #EF4444;
+      --ex: #10B981;
+      --budget: #7C3AED;
+      --plan: #0EA5A5;
+      --bg: #F1F5F9;
+      --muted: #64748B;
+      --ink: #111827;
+      --line: #E2E8F0;
+      --white: #FFFFFF;
+      --shadow: 0 4px 20px rgba(0,0,0,.08);
+      --radius: 14px;
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      background: var(--navy);
+      color: var(--white);
+      font-family: 'Cairo', Tahoma, sans-serif;
+      font-size: 15px;
+      line-height: 1.75;
+      animation: pageIn .5s ease both;
+    }
+    button, input { font: inherit; }
+    button { cursor: pointer; }
+    button:focus-visible, input:focus-visible { outline: 3px solid rgba(245,158,11,.45); outline-offset: 2px; }
+    @keyframes pageIn { from {opacity:0} to {opacity:1} }
+    @keyframes fadeIn { from {opacity:0; transform:translateY(10px)} to {opacity:1; transform:translateY(0)} }
+    @keyframes shimmer { 0% {background-position:100% 0} 100% {background-position:-100% 0} }
+
+    .site-header { background: var(--navy); border-bottom: 1px solid rgba(255,255,255,.1); position: sticky; top: 0; z-index: 50; backdrop-filter: blur(14px); }
+    .header-top { max-width: 1440px; margin: auto; padding: 12px 24px 8px; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 18px; }
+    .brand { display:flex; align-items:center; gap:12px; justify-self:end; min-width:0; }
+    .brand-mark { width:46px; height:46px; border-radius:15px; display:grid; place-items:center; background:var(--gold); color:var(--navy); font-size:24px; box-shadow:0 8px 22px rgba(245,158,11,.2); flex-shrink:0; }
+    .brand h1 { margin:0; color:#fff; font-size:23px; line-height:1.25; font-weight:800; white-space:nowrap; }
+    .brand small { display:block; color:var(--gold); font-size:11px; letter-spacing:.3px; font-weight:800; direction:ltr; text-align:right; }
+    .header-badges { display:flex; align-items:center; justify-content:center; gap:8px; color:#CBD5E1; font-size:12px; }
+    .badge { padding:5px 12px; border-radius:30px; background:var(--navy-light); white-space:nowrap; }
+    .badge.live { color:#6EE7B7; background:rgba(16,185,129,.15); }
+    .header-action { justify-self:start; }
+    .btn { border:0; border-radius:10px; padding:11px 18px; background:var(--gold); color:#111827; font-weight:800; font-size:14px; box-shadow:0 4px 12px rgba(245,158,11,.18); transition:all .25s ease; }
+    .btn:hover { background:var(--gold-light); transform:translateY(-2px); box-shadow:0 8px 18px rgba(245,158,11,.22); }
+    .btn:active { transform:translateY(0); }
+    .btn.secondary { background:#E2E8F0; color:#0F172A; box-shadow:none; }
+    .btn.secondary:hover { background:#CBD5E1; }
+    .btn.danger { background:#FEE2E2; color:#991B1B; box-shadow:none; }
+    .tabs-wrap { max-width:1440px; margin:auto; padding:2px 24px 13px; }
+    .tabs { display:flex; gap:8px; align-items:center; justify-content:space-between; }
+    .tab-btn { border:1px solid transparent; background:var(--navy-light); color:#F8FAFC; border-radius:10px; padding:9px 14px; font-weight:700; font-size:14px; white-space:nowrap; transition:all .25s ease; }
+    .tab-btn:hover { background:#334155; transform:translateY(-1px); }
+    .tab-btn[aria-selected="true"] { background:var(--gold); color:#111827; border-color:var(--gold); box-shadow:0 5px 14px rgba(245,158,11,.18); }
+    .tab-btn[data-tab="cold"][aria-selected="true"] { background:var(--cold); color:#fff; border-color:var(--cold); }
+    .tab-btn[data-tab="warm"][aria-selected="true"] { background:var(--warm); color:#fff; border-color:var(--warm); }
+    .tab-btn[data-tab="hot"][aria-selected="true"] { background:var(--hot); color:#fff; border-color:var(--hot); }
+    .tab-btn[data-tab="existing"][aria-selected="true"] { background:var(--ex); color:#06281D; border-color:var(--ex); }
+    .tab-btn[data-tab="budget"][aria-selected="true"] { background:var(--budget); color:#fff; border-color:var(--budget); }
+    .tab-btn[data-tab="plan"][aria-selected="true"] { background:var(--plan); color:#062B2B; border-color:var(--plan); }
+
+    main { max-width:1440px; margin:0 auto; padding:24px; min-height:70vh; }
+    .tab-content { display:none; animation:fadeIn .4s ease both; }
+    .tab-content.active { display:block; }
+    .page-intro { display:flex; justify-content:space-between; align-items:flex-end; gap:18px; margin:0 0 20px; }
+    .eyebrow { color:var(--gold); font-size:12px; font-weight:800; letter-spacing:.4px; margin:0 0 4px; }
+    .page-title { font-size:26px; font-weight:800; line-height:1.35; margin:0; color:#fff; }
+    .page-subtitle { color:#CBD5E1; margin:5px 0 0; font-size:14px; }
+    .section { background:var(--white); color:var(--ink); border-radius:20px; padding:22px; margin-bottom:20px; box-shadow:var(--shadow); }
+    .section-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:16px; }
+    .section-head h2 { margin:0; font-size:21px; line-height:1.4; font-weight:800; color:var(--ink); }
+    .section-head p { margin:4px 0 0; color:var(--muted); font-size:13px; }
+    .section-kicker { display:flex; align-items:center; gap:9px; }
+    .section-dot { width:10px; height:10px; border-radius:50%; background:var(--gold); box-shadow:0 0 0 5px rgba(245,158,11,.12); }
+    .small-note { background:#FFFBEB; border:1px solid #FDE68A; color:#854D0E; padding:12px 14px; border-radius:12px; font-size:13px; }
+    .muted { color:var(--muted); }
+    .grid { display:grid; gap:12px; }
+    .grid.four { grid-template-columns:repeat(4,minmax(0,1fr)); }
+    .grid.three { grid-template-columns:repeat(3,minmax(0,1fr)); }
+    .grid.two { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    .card { background:#fff; color:var(--ink); border-radius:var(--radius); padding:17px 19px; box-shadow:var(--shadow); border:1px solid rgba(226,232,240,.9); position:relative; overflow:hidden; transition:transform .3s ease, box-shadow .3s ease; }
+    .card:hover { transform:translateY(-4px); box-shadow:0 10px 30px rgba(0,0,0,.15); }
+    .card-accent { border-right:8px solid var(--accent,var(--gold)); }
+    .card h3 { margin:0 0 7px; font-size:17px; font-weight:800; line-height:1.45; }
+    .card p { margin:0; color:#475569; font-size:14px; }
+    .card .icon { font-size:24px; margin-bottom:8px; display:inline-flex; width:42px; height:42px; align-items:center; justify-content:center; background:var(--tint,#F8FAFC); border-radius:12px; }
+    .metric { font-size:30px; line-height:1.1; font-weight:800; color:var(--gold); margin-bottom:5px; }
+    .metric-label { color:#334155; font-weight:700; font-size:14px; }
+    .home-hero { background:linear-gradient(120deg,#17243D 0%,#0F172A 60%,#27344C 100%); border:1px solid rgba(245,158,11,.22); border-radius:22px; padding:34px; margin-bottom:20px; position:relative; overflow:hidden; }
+    .home-hero:after { content:""; position:absolute; width:320px; height:320px; border:1px solid rgba(245,158,11,.15); border-radius:50%; left:-100px; top:-190px; box-shadow:0 0 0 28px rgba(245,158,11,.025),0 0 0 58px rgba(245,158,11,.02); }
+    .hero-content { position:relative; z-index:1; max-width:820px; }
+    .hero-tag { display:inline-flex; align-items:center; gap:7px; padding:5px 11px; border-radius:30px; border:1px solid rgba(245,158,11,.35); background:rgba(245,158,11,.1); color:#FCD34D; font-size:12px; font-weight:700; margin-bottom:12px; }
+    .home-hero h2 { font-size:34px; line-height:1.35; font-weight:800; margin:0 0 9px; color:#fff; }
+    .home-hero h2 span { color:var(--gold); }
+    .home-hero p { color:#CBD5E1; font-size:16px; margin:0 0 20px; }
+    .hero-actions { display:flex; align-items:center; gap:10px; flex-wrap:wrap; }
+    .hero-link { color:#F8FAFC; border:1px solid rgba(255,255,255,.18); text-decoration:none; padding:10px 17px; border-radius:10px; font-weight:700; font-size:14px; transition:all .25s; }
+    .hero-link:hover { background:rgba(255,255,255,.1); transform:translateY(-2px); }
+    .rule-card { min-height:142px; }
+    .rule-label { display:flex; align-items:center; gap:8px; font-weight:800; font-size:15px; margin-bottom:9px; }
+    .rule-text { font-size:20px; font-weight:800; color:var(--ink); }
+    .numbered-list { counter-reset:steps; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:12px; }
+    .step-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; position:relative; min-height:154px; }
+    .step-num { width:32px; height:32px; border-radius:10px; background:#FEF3C7; color:#92400E; display:grid; place-items:center; font-weight:800; margin-bottom:9px; }
+    .step-card h3 { margin:0 0 6px; font-size:15px; font-weight:800; }
+    .step-card p { margin:0; font-size:13px; color:#64748B; }
+
+    .funnel-box { background:#fff; border-radius:20px; padding:24px; color:var(--ink); box-shadow:var(--shadow); margin-bottom:20px; }
+    .funnel-stack { display:flex; flex-direction:column; align-items:center; gap:8px; padding:6px 0 0; }
+    .funnel-layer { min-height:80px; display:flex; align-items:center; justify-content:space-between; gap:16px; color:#fff; border-radius:16px; padding:13px 18px; cursor:pointer; border:2px solid transparent; box-shadow:0 7px 16px rgba(15,23,42,.1); transition:all .25s ease; text-align:right; }
+    .funnel-layer:hover { transform:scale(1.015); filter:brightness(1.05); }
+    .funnel-layer strong { display:block; font-size:18px; font-weight:800; }
+    .funnel-layer span { font-size:13px; opacity:.95; }
+    .funnel-percent { font-size:20px!important; font-weight:800; direction:ltr; white-space:nowrap; }
+    .funnel-cold { width:100%; background:var(--cold); }
+    .funnel-warm { width:80%; background:var(--warm); }
+    .funnel-hot { width:60%; background:var(--hot); }
+    .funnel-ex { width:40%; min-width:260px; background:var(--ex); }
+    .funnel-hint { color:var(--muted); font-size:12px; text-align:center; margin-top:12px; }
+
+    .table-wrap { overflow-x:auto; border:1px solid var(--line); border-radius:12px; }
+    table { border-collapse:collapse; width:100%; min-width:1050px; font-size:13px; }
+    thead { background:var(--navy); color:#fff; }
+    th { padding:13px 11px; text-align:right; font-weight:800; white-space:nowrap; }
+    td { padding:12px 11px; border-top:1px solid var(--line); vertical-align:top; color:#334155; }
+    tbody tr:nth-child(even) { background:var(--bg); }
+    tbody tr:nth-child(odd) { background:#fff; }
+    .stage-pill { display:inline-flex; align-items:center; gap:6px; border-radius:30px; padding:4px 9px; font-weight:800; white-space:nowrap; }
+    .stage-pill.cold { color:#1D4ED8; background:#DBEAFE; }
+    .stage-pill.warm { color:#C2410C; background:#FFEDD5; }
+    .stage-pill.hot { color:#B91C1C; background:#FEE2E2; }
+    .stage-pill.ex { color:#047857; background:#D1FAE5; }
+    .budget-cell { color:#B45309; font-size:16px; font-weight:800; white-space:nowrap; }
+
+    .stage-banner { border-radius:18px; padding:23px 25px; color:#fff; margin-bottom:18px; display:flex; align-items:center; justify-content:space-between; gap:16px; box-shadow:0 9px 20px rgba(15,23,42,.12); }
+    .stage-banner h2 { margin:0; font-size:26px; font-weight:800; }
+    .stage-banner p { margin:5px 0 0; opacity:.94; font-size:14px; }
+    .stage-banner .stage-emoji { font-size:40px; opacity:.95; }
+    .banner-cold { background:linear-gradient(115deg,#1D4ED8,#2563EB); }
+    .banner-warm { background:linear-gradient(115deg,#EA580C,#F97316); }
+    .banner-hot { background:linear-gradient(115deg,#DC2626,#EF4444); }
+    .banner-ex { background:linear-gradient(115deg,#059669,#10B981); }
+    .content-card { background:#fff; color:var(--ink); border-radius:16px; padding:20px; margin-bottom:15px; box-shadow:var(--shadow); border-right:8px solid var(--accent,var(--gold)); }
+    .content-card h3 { margin:0 0 10px; font-weight:800; font-size:18px; }
+    .content-card p { color:#475569; margin:0; font-size:14px; }
+    .content-card ul { margin:6px 0 0; padding-right:20px; color:#475569; font-size:14px; }
+    .content-card li { margin:5px 0; }
+    .audience-card { min-height:160px; }
+    .audience-card .mini-tag { display:inline-block; color:var(--accent); font-size:11px; font-weight:800; background:var(--tint); padding:3px 8px; border-radius:30px; margin-bottom:7px; }
+    .audience-card h3 { margin-bottom:5px; }
+    .audience-card p { font-size:13px; }
+    .list-card { background:#fff; border:1px solid var(--line); border-radius:14px; padding:16px; }
+    .list-card h3 { margin:0 0 6px; font-size:15px; font-weight:800; }
+    .list-card p { margin:0; color:#64748B; font-size:13px; }
+    .kpi-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .kpi-item { background:#F8FAFC; border:1px solid var(--line); border-radius:12px; padding:12px; }
+    .kpi-item strong { display:block; color:#0F172A; font-size:14px; }
+    .kpi-item span { display:block; color:#64748B; font-size:12px; margin-top:3px; }
+    .split-line { height:1px; background:var(--line); margin:17px 0; }
+    .timeline { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:12px; counter-reset:timeline; }
+    .timeline-item { background:#fff; border:1px solid var(--line); border-radius:14px; padding:15px; position:relative; }
+    .timeline-item:before { counter-increment:timeline; content:counter(timeline); width:28px; height:28px; border-radius:9px; background:#FFEDD5; color:#C2410C; display:grid; place-items:center; font-weight:800; margin-bottom:8px; }
+    .timeline-item h3 { font-size:15px; margin:0 0 5px; font-weight:800; }
+    .timeline-item p { color:#64748B; font-size:13px; margin:0; }
+    .campaign-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; }
+    .campaign-card { border:1px solid var(--line); border-radius:14px; padding:17px; background:#fff; }
+    .campaign-days { display:inline-block; background:#FEE2E2; color:#B91C1C; border-radius:30px; padding:4px 10px; font-size:12px; font-weight:800; margin-bottom:9px; }
+    .campaign-card h3 { font-size:16px; margin:0 0 6px; font-weight:800; }
+    .campaign-card p { color:#64748B; font-size:13px; margin:0; }
+
+    .calculator-layout { display:grid; grid-template-columns: minmax(280px,.82fr) minmax(0,1.5fr); gap:16px; }
+    .input-panel { background:#fff; color:var(--ink); border-radius:18px; padding:22px; box-shadow:var(--shadow); border-top:6px solid var(--budget); }
+    .input-panel h3 { margin:0 0 15px; font-size:19px; font-weight:800; }
+    .field { margin-bottom:17px; }
+    .field label { display:flex; justify-content:space-between; gap:8px; font-size:14px; font-weight:800; color:#334155; margin-bottom:7px; }
+    .field small { font-weight:500; color:#94A3B8; }
+    .input-shell { display:flex; align-items:center; border:1px solid #CBD5E1; border-radius:10px; overflow:hidden; background:#fff; }
+    .input-shell:focus-within { border-color:var(--budget); box-shadow:0 0 0 3px rgba(124,58,237,.1); }
+    .input-shell input { width:100%; min-width:0; padding:12px; border:0; outline:0; color:#111827; background:transparent; font-weight:800; font-size:17px; direction:ltr; text-align:right; }
+    .input-unit { padding:0 12px; color:#64748B; font-size:13px; background:#F8FAFC; border-right:1px solid #E2E8F0; white-space:nowrap; }
+    .calc-results { display:flex; flex-direction:column; gap:14px; }
+    .allocation-panel { background:#fff; color:var(--ink); border-radius:18px; padding:22px; box-shadow:var(--shadow); }
+    .allocation-panel h3 { margin:0 0 14px; font-size:19px; font-weight:800; }
+    .allocation-row { margin:14px 0 17px; }
+    .allocation-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:7px; font-size:14px; }
+    .allocation-name { display:flex; align-items:center; gap:8px; font-weight:800; }
+    .allocation-name i { display:inline-block; width:10px; height:10px; border-radius:3px; background:var(--bar); }
+    .allocation-values { text-align:left; direction:ltr; color:#334155; font-weight:800; }
+    .allocation-values small { display:block; direction:rtl; color:#94A3B8; font-size:11px; font-weight:500; }
+    .progress-track { width:100%; height:14px; border-radius:30px; background:#E2E8F0; overflow:hidden; }
+    .fill { height:100%; width:0; border-radius:30px; background:var(--fill,var(--gold)); transition:width .5s ease; }
+    .daily-total { display:flex; justify-content:space-between; padding:12px 14px; border-radius:12px; background:#F5F3FF; color:#5B21B6; font-weight:800; margin-top:10px; }
+    .forecast-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
+    .forecast-card { background:#fff; color:var(--ink); border-radius:15px; padding:17px; box-shadow:var(--shadow); border-bottom:4px solid var(--budget); }
+    .forecast-card span { display:block; color:#64748B; font-size:12px; font-weight:700; }
+    .forecast-card strong { display:block; color:#5B21B6; font-size:23px; font-weight:800; margin-top:4px; direction:ltr; text-align:right; }
+    .assumption { background:#F5F3FF; border:1px solid #DDD6FE; color:#5B21B6; padding:12px 14px; border-radius:12px; font-size:12px; }
+
+    .plan-summary { background:linear-gradient(110deg,#0F766E,#0EA5A5); color:#fff; border-radius:18px; padding:22px; margin-bottom:17px; box-shadow:0 10px 24px rgba(14,165,165,.18); }
+    .plan-summary-top { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:12px; }
+    .plan-summary h3 { margin:0; font-size:19px; font-weight:800; }
+    .plan-summary .percent { font-size:29px; font-weight:800; direction:ltr; }
+    .plan-progress { height:14px; background:rgba(255,255,255,.25); border-radius:30px; overflow:hidden; }
+    .plan-progress .fill { background:#FDE68A; }
+    .plan-counter { margin-top:8px; color:#CCFBF1; font-size:13px; }
+    .week-block { background:#fff; color:var(--ink); border-radius:17px; padding:18px; margin-bottom:14px; box-shadow:var(--shadow); border-top:5px solid var(--plan); }
+    .week-title { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-bottom:12px; }
+    .week-title h3 { margin:0; font-size:18px; font-weight:800; }
+    .week-title span { background:#CCFBF1; color:#0F766E; padding:4px 10px; border-radius:30px; font-size:12px; font-weight:800; white-space:nowrap; }
+    .task-list { display:grid; gap:8px; }
+    .task { display:grid; grid-template-columns:auto 1fr; align-items:start; gap:11px; border:1px solid var(--line); padding:11px 13px; border-radius:12px; background:#fff; transition:all .3s ease; }
+    .task:hover { border-color:#99F6E4; background:#F8FFFE; }
+    .task input { width:19px; height:19px; margin:4px 0 0; accent-color:var(--ex); cursor:pointer; }
+    .task label { cursor:pointer; display:block; }
+    .task strong { display:block; font-size:14px; color:#1F2937; font-weight:800; }
+    .task small { display:block; color:#64748B; font-size:12px; margin-top:2px; }
+    .task.done { background:#ECFDF5; border-color:#A7F3D0; }
+    .task.done strong { color:#047857; text-decoration:line-through; }
+    .task.done small { color:#059669; }
+    .plan-actions { display:flex; justify-content:flex-start; margin:12px 0 18px; }
+    .footer { max-width:1440px; margin:0 auto; padding:8px 24px 28px; text-align:center; color:#94A3B8; font-size:12px; }
+    .footer strong { color:#FBBF24; }
+    .modal-backdrop { position:fixed; inset:0; background:rgba(2,6,23,.68); display:none; place-items:center; z-index:100; padding:18px; }
+    .modal-backdrop.show { display:grid; }
+    .modal { width:min(100%,420px); border-radius:18px; background:#fff; color:#111827; padding:22px; box-shadow:0 24px 70px rgba(0,0,0,.3); animation:fadeIn .2s ease; }
+    .modal h3 { margin:0 0 7px; font-size:19px; font-weight:800; }
+    .modal p { color:#64748B; font-size:14px; margin:0 0 18px; }
+    .modal-actions { display:flex; gap:9px; justify-content:flex-start; }
+    .toast { position:fixed; bottom:20px; left:20px; background:#064E3B; color:#ECFDF5; border:1px solid #10B981; padding:11px 16px; border-radius:11px; box-shadow:0 8px 28px rgba(0,0,0,.18); z-index:120; opacity:0; transform:translateY(12px); pointer-events:none; transition:all .3s ease; font-size:13px; }
+    .toast.show { opacity:1; transform:translateY(0); }
+
+    @media (max-width:1100px) {
+      .tabs { justify-content:flex-start; overflow-x:auto; padding-bottom:4px; scrollbar-width:thin; }
+      .numbered-list { grid-template-columns:repeat(3,minmax(0,1fr)); }
+      .grid.four { grid-template-columns:repeat(2,minmax(0,1fr)); }
+    }
+    @media (max-width:760px) {
+      .header-top { grid-template-columns:1fr auto; padding:11px 15px 7px; gap:8px; }
+      .brand { grid-column:1; grid-row:1; }
+      .brand h1 { font-size:18px; }
+      .brand-mark { width:40px; height:40px; border-radius:12px; }
+      .header-badges { display:none; }
+      .header-action { grid-column:2; grid-row:1; }
+      .header-action .btn { padding:9px 11px; font-size:12px; }
+      .tabs-wrap { padding:5px 15px 12px; }
+      .tabs { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:7px; overflow:visible; }
+      .tab-btn { white-space:normal; padding:9px 8px; font-size:13px; text-align:center; }
+      main { padding:17px 15px; }
+      .page-intro { display:block; }
+      .page-title { font-size:22px; }
+      .section { padding:16px; border-radius:16px; }
+      .section-head h2 { font-size:18px; }
+      .home-hero { padding:24px 19px; border-radius:17px; }
+      .home-hero h2 { font-size:25px; }
+      .home-hero p { font-size:14px; }
+      .grid.four,.grid.three,.grid.two { grid-template-columns:1fr; }
+      .numbered-list { grid-template-columns:1fr; }
+      .step-card { min-height:auto; }
+      .funnel-box { padding:15px; }
+      .funnel-layer { min-height:76px; padding:11px; border-radius:12px; }
+      .funnel-layer strong { font-size:15px; }
+      .funnel-layer span { font-size:11px; }
+      .funnel-percent { font-size:16px!important; }
+      .funnel-ex { min-width:0; }
+      .stage-banner { padding:18px; }
+      .stage-banner h2 { font-size:21px; }
+      .stage-banner .stage-emoji { font-size:30px; }
+      .timeline,.campaign-grid,.kpi-grid { grid-template-columns:1fr; }
+      .calculator-layout { grid-template-columns:1fr; }
+      .forecast-grid { grid-template-columns:1fr; }
+      .forecast-card { display:flex; justify-content:space-between; align-items:center; }
+      .forecast-card strong { margin:0; font-size:20px; }
+      .week-block { padding:14px; }
+      .week-title h3 { font-size:16px; }
+      .footer { padding:5px 15px 22px; }
+      .table-wrap { border:0; overflow:visible; }
+      table, tbody, tr, td { display:block; width:100%; min-width:0; }
+      thead { display:none; }
+      tbody { display:grid; gap:11px; }
+      tbody tr { border:1px solid var(--line); border-radius:13px; overflow:hidden; box-shadow:0 2px 8px rgba(15,23,42,.04); }
+      td { display:grid; grid-template-columns:112px minmax(0,1fr); gap:8px; border-top:1px solid #E2E8F0; padding:9px 11px; font-size:12px; }
+      td:first-child { border-top:0; }
+      td:before { content:attr(data-label); color:#64748B; font-weight:800; }
+      .section .table-wrap { margin:0; }
+    }
+    @media (max-width:380px) {
+      .brand h1 { font-size:16px; }
+      .header-action .btn { font-size:11px; padding:8px; }
+      td { grid-template-columns:94px minmax(0,1fr); }
+      .funnel-layer { gap:7px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior:auto!important; animation-duration:.01ms!important; animation-iteration-count:1!important; transition-duration:.01ms!important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <div class="header-top">
+      <div class="header-action"><button class="btn" type="button" data-go="budget">احسب ميزانيتك ←</button></div>
+      <div class="header-badges"><span class="badge live">● دليل عملي قابل للتطبيق</span><span class="badge">30 يوم</span><span class="badge">4 مراحل</span></div>
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true">🎯</div>
+        <div><h1>قمع الجمهور الاحترافي</h1><small>AUDIENCE FUNNEL MASTERPLAN</small></div>
+      </div>
+    </div>
+    <div class="tabs-wrap">
+      <nav class="tabs" role="tablist" aria-label="أقسام قمع الجمهور">
+        <button class="tab-btn" role="tab" id="tab-home" aria-controls="panel-home" aria-selected="true" data-tab="home">🚀 البداية</button>
+        <button class="tab-btn" role="tab" id="tab-map" aria-controls="panel-map" aria-selected="false" data-tab="map">🔻 خريطة القمع</button>
+        <button class="tab-btn" role="tab" id="tab-cold" aria-controls="panel-cold" aria-selected="false" data-tab="cold">💙 بارد</button>
+        <button class="tab-btn" role="tab" id="tab-warm" aria-controls="panel-warm" aria-selected="false" data-tab="warm">🧡 دافئ</button>
+        <button class="tab-btn" role="tab" id="tab-hot" aria-controls="panel-hot" aria-selected="false" data-tab="hot">🔥 ساخن</button>
+        <button class="tab-btn" role="tab" id="tab-existing" aria-controls="panel-existing" aria-selected="false" data-tab="existing">💚 عملاء</button>
+        <button class="tab-btn" role="tab" id="tab-budget" aria-controls="panel-budget" aria-selected="false" data-tab="budget">🧮 حاسبة الميزانية</button>
+        <button class="tab-btn" role="tab" id="tab-plan" aria-controls="panel-plan" aria-selected="false" data-tab="plan">🗓️ خطة 30 يوم</button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <!-- HOME -->
+    <section class="tab-content active" id="panel-home" role="tabpanel" aria-labelledby="tab-home" data-panel="home">
+      <div class="home-hero">
+        <div class="hero-content">
+          <div class="hero-tag">✦ دليل إعلانات عملي — من أول تفاعل إلى إعادة الشراء</div>
+          <h2>متبيعش لكل الناس <span>بنفس الكلام</span></h2>
+          <p>قسّم جمهورك، كلم كل واحد بالرسالة الصح. الشخص اللي لسه بيتعرف عليك محتاج قيمة، واللي قرب يشتري محتاج إجابة واضحة تشيل تردده.</p>
+          <div class="hero-actions"><button class="btn" type="button" data-go="map">ابدأ بفهم خريطة القمع ←</button><button class="hero-link" type="button" data-go="plan">شوف خطة التنفيذ لمدة 30 يوم</button></div>
+        </div>
+      </div>
+      <div class="grid four" style="margin-bottom:20px">
+        <article class="card" style="--accent:var(--cold)"><div class="metric">4</div><div class="metric-label">مراحل للجمهور</div><p style="margin-top:6px">من أول معرفة إلى عميل متكرر.</p></article>
+        <article class="card" style="--accent:var(--plan)"><div class="metric">30</div><div class="metric-label">يوم للتنفيذ</div><p style="margin-top:6px">خطة موزعة على 4 أسابيع.</p></article>
+        <article class="card" style="--accent:var(--warm)"><div class="metric">18+</div><div class="metric-label">شريحة جمهور</div><p style="margin-top:6px">مصادر وأمثلة قابلة للاختبار.</p></article>
+        <article class="card" style="--accent:var(--gold)"><div class="metric">100%</div><div class="metric-label">تطبيق عملي</div><p style="margin-top:6px">رسائل، استبعادات، وقياس.</p></article>
+      </div>
+      <section class="section">
+        <div class="section-head"><div class="section-kicker"><span class="section-dot"></span><div><h2>القاعدة الذهبية</h2><p>كل مرحلة لها رسالة وهدف مختلفان.</p></div></div></div>
+        <div class="grid four">
+          <article class="card card-accent rule-card" style="--accent:var(--cold)"><div class="rule-label" style="color:var(--cold)">💙 بارد Cold</div><div class="rule-text">ادي قيمة بس</div><p style="margin-top:7px">علّم الشخص ولفت انتباهه من غير ضغط بيع.</p></article>
+          <article class="card card-accent rule-card" style="--accent:var(--warm)"><div class="rule-label" style="color:var(--warm)">🧡 دافئ Warm</div><div class="rule-text">ادي واطلب</div><p style="margin-top:7px">قدّم دليل ثقة واطلب خطوة بسيطة.</p></article>
+          <article class="card card-accent rule-card" style="--accent:var(--hot)"><div class="rule-label" style="color:var(--hot)">🔥 ساخن Hot</div><div class="rule-text">اكسر الاعتراض</div><p style="margin-top:7px">جاوب عن السعر والضمان والتوصيل بوضوح.</p></article>
+          <article class="card card-accent rule-card" style="--accent:var(--ex)"><div class="rule-label" style="color:var(--ex)">💚 حالي Existing</div><div class="rule-text">بيع باحترام</div><p style="margin-top:7px">قدّر العميل واعرض ما يناسب احتياجه وتوقيته.</p></article>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-head"><div class="section-kicker"><span class="section-dot"></span><div><h2>ابدأ في 5 خطوات</h2><p>رحلة تنفيذ منطقية تمنع تداخل الجمهور والإنفاق.</p></div></div></div>
+        <div class="numbered-list">
+          <article class="step-card"><div class="step-num">1</div><h3>حدد العميل والهدف</h3><p>حدد المنتج، العميل المثالي، المشكلة التي تحلها، والهدف التجاري المطلوب.</p></article>
+          <article class="step-card"><div class="step-num">2</div><h3>جهّز القياس</h3><p>راجع Pixel وConversions API والأحداث والكتالوج عند الحاجة قبل ضخ الميزانية.</p></article>
+          <article class="step-card"><div class="step-num">3</div><h3>ابنِ الجماهير</h3><p>أنشئ جماهير مخصصة ومتشابهة، وحدد نوافذ الاحتفاظ ومصادر كل شريحة.</p></article>
+          <article class="step-card"><div class="step-num">4</div><h3>وزّع الرسائل والإنفاق</h3><p>استخدم رسالة تناسب حرارة الجمهور، مع استبعادات تقلل تداخل الحملات.</p></article>
+          <article class="step-card"><div class="step-num">5</div><h3>قِس وحسّن</h3><p>راجع مؤشرات كل مرحلة أسبوعياً، وانقل الميزانية للفائزين بناءً على بيانات حقيقية.</p></article>
+        </div>
+      </section>
+      <div class="small-note">تنبيه مهم: نسب القمع وتوزيع الميزانية داخل هذا الدليل أمثلة تخطيطية تساعدك على البداية، وليست ضماناً للنتائج. اختبرها حسب السوق والقطاع وحجم البيانات والهدف.</div>
+    </section>
+
+    <!-- MAP -->
+    <section class="tab-content" id="panel-map" role="tabpanel" aria-labelledby="tab-map" data-panel="map">
+      <div class="page-intro"><div><p class="eyebrow">الصورة الكاملة</p><h2 class="page-title">خريطة القمع البصرية</h2><p class="page-subtitle">كل ما نزلت تحت، الجمهور بيقل والنية الشرائية غالباً بتزيد.</p></div><button class="btn" type="button" data-go="cold">ابدأ بالمرحلة الأولى ←</button></div>
+      <div class="funnel-box">
+        <div class="section-head"><div><h2>القمع التسويقي — 4 مراحل</h2><p>اضغط على أي مرحلة للانتقال إلى تفاصيلها.</p></div><span class="stage-pill cold">TOFU → BOFU</span></div>
+        <div class="funnel-stack">
+          <button class="funnel-layer funnel-cold" type="button" data-go="cold"><div><strong>بارد Cold</strong><span>معرفة — محتاج قيمة • اضغط للتفاصيل ←</span></div><span class="funnel-percent">100%</span></button>
+          <button class="funnel-layer funnel-warm" type="button" data-go="warm"><div><strong>دافئ Warm</strong><span>شافك وتفاعل — محتاج إثبات • اضغط للتفاصيل ←</span></div><span class="funnel-percent">30%</span></button>
+          <button class="funnel-layer funnel-hot" type="button" data-go="hot"><div><strong>ساخن Hot</strong><span>قرب يشتري — محتاج كسر اعتراض • اضغط للتفاصيل ←</span></div><span class="funnel-percent">10%</span></button>
+          <button class="funnel-layer funnel-ex" type="button" data-go="existing"><div><strong>حالي Existing</strong><span>اشترى — محتاج احترام وعرض ذكي • اضغط للتفاصيل ←</span></div><span class="funnel-percent">3%</span></button>
+        </div>
+        <div class="funnel-hint">النسب تمثيل توضيحي لحجم الجمهور مقارنة بأعلى القمع، وليست نسب تحويل مضمونة ولا يتم جمعها.</div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>الجدول الرئيسي — مقارنة المراحل الأربع</h2><p>استخدمه كمرجع سريع قبل إنشاء مجموعاتك الإعلانية.</p></div></div>
+        <div class="table-wrap"><table>
+          <thead><tr><th>المرحلة</th><th>مين دول؟</th><th>هدفك</th><th>الرسالة الصح</th><th>أمثلة جمهور</th><th>استبعادات</th><th>مدة الاستهداف</th><th>الميزانية</th></tr></thead>
+          <tbody>
+            <tr><td data-label="المرحلة"><span class="stage-pill cold">💙 بارد</span></td><td data-label="مين دول؟">أشخاص جدد لم يتفاعلوا مع نشاطك.</td><td data-label="هدفك">الوصول واكتشاف الطلب.</td><td data-label="الرسالة الصح">رسالة تثقيفية تقدم قيمة بدون ضغط بيع.</td><td data-label="أمثلة جمهور">اهتمامات، Broad، Lookalike من مشترين أو زوار أو مشاهدين.</td><td data-label="استبعادات">الدافئ والساخن والعملاء الحاليون.</td><td data-label="مدة الاستهداف">اكتساب مستمر؛ راجع 7–30 يوم حسب البيانات.</td><td data-label="الميزانية"><span class="budget-cell">40%</span></td></tr>
+            <tr><td data-label="المرحلة"><span class="stage-pill warm">🧡 دافئ</span></td><td data-label="مين دول؟">شاهدوا أو تفاعلوا مع المحتوى أو الصفحة أو الحساب.</td><td data-label="هدفك">بناء الثقة ونقلهم لمرحلة التفكير.</td><td data-label="الرسالة الصح">إثبات اجتماعي + فائدة + دعوة لخطوة بسيطة.</td><td data-label="أمثلة جمهور">مشاهدة 50% فيديو، تفاعل الصفحة/إنستجرام، فتح نموذج، رسائل.</td><td data-label="استبعادات">الساخن والعملاء الحاليون عند اكتساب عملاء جدد.</td><td data-label="مدة الاستهداف">14–90 يوماً حسب المصدر.</td><td data-label="الميزانية"><span class="budget-cell">25%</span></td></tr>
+            <tr><td data-label="المرحلة"><span class="stage-pill hot">🔥 ساخن</span></td><td data-label="مين دول؟">أظهروا نية واضحة: صفحة منتج أو بدء شراء أو تواصل جاد.</td><td data-label="هدفك">إغلاق البيع وإزالة الاعتراض.</td><td data-label="الرسالة الصح">عرض واضح، ضمان، سعر، شحن، معاينة أو استشارة.</td><td data-label="أمثلة جمهور">زوار المنتج، Add to Cart، Initiate Checkout، زيارات متكررة.</td><td data-label="استبعادات">المشترون الحاليون إذا لم تكن الحملة لإعادة الشراء.</td><td data-label="مدة الاستهداف">3–28 يوماً.</td><td data-label="الميزانية"><span class="budget-cell">25%</span></td></tr>
+            <tr><td data-label="المرحلة"><span class="stage-pill ex">💚 عملاء</span></td><td data-label="مين دول؟">اشتروا سابقاً أو ضمن CRM موثق.</td><td data-label="هدفك">إعادة الشراء والبيع التكميلي والولاء.</td><td data-label="الرسالة الصح">تقدير + منتج مكمل أو تجديد مناسب.</td><td data-label="أمثلة جمهور">مشترو 30/60/90 يوماً، VIP، اشترى X.</td><td data-label="استبعادات">من لا يناسبه العرض أو اشترى المنتج نفسه حديثاً.</td><td data-label="مدة الاستهداف">حسب دورة الشراء 30–180 يوماً.</td><td data-label="الميزانية"><span class="budget-cell">10%</span></td></tr>
+          </tbody>
+        </table></div>
+      </section>
+      <section class="section">
+        <div class="section-head"><div><h2>مثال عملي — حملة PVC</h2><p>نفس المنتج، لكن الرسالة تتغير حسب معرفة الشخص ونيته.</p></div></div>
+        <div class="grid four">
+          <article class="card card-accent" style="--accent:var(--cold)"><div class="rule-label" style="color:var(--cold)">💙 بارد</div><h3>فيديو فرق الخامات</h3><p>اشرح الفرق بين الخامات وأخطاء الاختيار، من غير طلب شراء مباشر.</p></article>
+          <article class="card card-accent" style="--accent:var(--warm)"><div class="rule-label" style="color:var(--warm)">🧡 دافئ</div><h3>اعرض أعمالنا</h3><p>صور مشروعات منفذة وتفاصيل الجودة والاستخدامات لبناء الثقة.</p></article>
+          <article class="card card-accent" style="--accent:var(--hot)"><div class="rule-label" style="color:var(--hot)">🔥 ساخن</div><h3>جاوب عن الاعتراض</h3><p>رد على السعر والضمان والمواصفات، مع دعوة لمعاينة أو استشارة مجانية.</p></article>
+          <article class="card card-accent" style="--accent:var(--ex)"><div class="rule-label" style="color:var(--ex)">💚 حالي</div><h3>عرض بعد شهرين</h3><p>قدّم منتجاً مكملاً أو تحديثاً مناسباً للعميل السابق.</p></article>
+        </div>
+      </section>
+    </section>
+
+    <!-- COLD -->
+    <section class="tab-content" id="panel-cold" role="tabpanel" aria-labelledby="tab-cold" data-panel="cold">
+      <div class="stage-banner banner-cold"><div><p class="eyebrow" style="color:#BFDBFE">STAGE 01 · AWARENESS</p><h2>الجمهور البارد — Cold</h2><p>أشخاص لا يعرفونك أو لم يتفاعلوا معك من قبل. هدفك جذب أشخاص جدد مناسبين، لا إجبارهم على الشراء فوراً.</p></div><div class="stage-emoji">💙</div></div>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--cold)"><h3>🎯 امتى تستخدمه؟</h3><ul><li>عند إطلاق منتج أو دخول سوق جديد.</li><li>عند توسيع الوصول وبناء قاعدة جمهور جديدة.</li><li>عندما تحتاج اكتشاف شرائح جديدة مع توفر قياس جيد.</li></ul></div>
+        <div class="content-card" style="--accent:var(--cold)"><h3>💬 الرسالة الصح</h3><p>مشكلة واضحة + معلومة مفيدة + دليل أو مقارنة + دعوة خفيفة مثل: شاهد / اكتشف / اعرف الفرق. تجنب الضغط والخصومات المباشرة قبل بناء الثقة.</p></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>6 جماهير باردة تستحق الاختبار</h2><p>ابدأ بالمصادر الأقوى لديك، واختبر كل نوع في مجموعة واضحة.</p></div><span class="stage-pill cold">COLD AUDIENCES</span></div>
+        <div class="grid three">
+          <article class="card audience-card card-accent" style="--accent:var(--cold);--tint:#DBEAFE"><span class="mini-tag">مصدر مشتريات</span><h3>1. Lookalike للمشترين</h3><p>أشخاص يشبهون عملاء فعليين من قائمة نظيفة ومحدثة. يكون أقوى عندما تتوفر بيانات شراء كافية.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--cold);--tint:#DBEAFE"><span class="mini-tag">مصدر زيارات</span><h3>2. Lookalike لزوار الموقع 1–3%</h3><p>مشابهون لزوار ذوي جودة. اختبر 1% أولاً ثم وسّع إلى 2–3% حسب النتائج.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--cold);--tint:#DBEAFE"><span class="mini-tag">مصدر فيديو</span><h3>3. Lookalike لمشاهدي 95%</h3><p>أشخاص يشبهون من شاهدوا معظم الفيديو. تأكد من جودة الفيديو وحجم الجمهور المصدر.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--cold);--tint:#DBEAFE"><span class="mini-tag">استهداف يدوي</span><h3>4. الاهتمامات</h3><p>اهتمامات مرتبطة بالقطاع وسلوك الشراء. اختبر مجموعات منفصلة وتجنب التضييق المبالغ فيه.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--cold);--tint:#DBEAFE"><span class="mini-tag">اكتشاف واسع</span><h3>5. واسع Broad</h3><p>استهداف جغرافي وعمري مناسب مع ترك مساحة للخوارزمية. يحتاج عرضاً وإبداعاً واضحين وقياساً جيداً.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--cold);--tint:#DBEAFE"><span class="mini-tag">مصدر CRM</span><h3>6. Lookalike لقائمة الإيميل</h3><p>استخدم بيانات لديك حق استخدامها وبموافقة مناسبة وبشكل آمن. لا تستخدم قوائم مشتراة.</p></article>
+        </div>
+      </section>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--cold)"><h3>🚫 الاستبعادات</h3><p>استبعد جماهير الدافئ + الساخن + العملاء الحاليين من حملات الاكتساب قدر الإمكان، لتقليل تداخل الإنفاق ومنع عرض رسالة التعارف لشخص يعرفك بالفعل.</p></div>
+        <div class="content-card" style="--accent:var(--cold)"><h3>📣 أمثلة إعلانات جاهزة للفكرة</h3><ul><li>فيديو: «3 أخطاء بتخلي اختيار ألواح PVC قرار مكلف».</li><li>بوست/كاروسيل: «الفرق بين الخامة الأصلية والبدائل الأقل جودة».</li><li>فيديو مقارنة استخدامات ومميزات مع دليل أو مشروع حقيقي.</li></ul></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>أخطاء شائعة ومؤشرات القياس</h2><p>لا تحكم على الجمهور من سعر المشاهدة أو CTR وحده.</p></div></div>
+        <div class="grid two">
+          <div class="list-card"><h3>⚠️ أخطاء شائعة</h3><ul><li>البيع المباشر من أول لمسة.</li><li>جمهور واسع بلا رسالة واضحة.</li><li>دمج كل الاهتمامات في مجموعة واحدة.</li><li>تجاهل الاستبعادات.</li><li>الحكم على الإعلان من يوم واحد.</li><li>الاعتماد على CTR وحده.</li></ul></div>
+          <div class="list-card"><h3>📊 KPIs تتابعها</h3><div class="kpi-grid"><div class="kpi-item"><strong>Reach</strong><span>عدد الأشخاص الذين وصل إليهم الإعلان.</span></div><div class="kpi-item"><strong>CPM</strong><span>تكلفة ألف ظهور.</span></div><div class="kpi-item"><strong>Frequency</strong><span>متوسط مرات ظهور الإعلان للشخص.</span></div><div class="kpi-item"><strong>ThruPlay</strong><span>مشاهدة فيديو بجودة/مدة معتبرة.</span></div><div class="kpi-item"><strong>CTR</strong><span>نسبة النقر إلى الظهور.</span></div><div class="kpi-item"><strong>CPC</strong><span>متوسط تكلفة النقرة.</span></div></div><p style="margin-top:10px;font-size:13px;color:#64748B">وتابع أيضاً زيارات صفحة الهبوط المؤهلة، لا مجرد عدد الزيارات.</p></div>
+        </div>
+      </section>
+      <div class="small-note"><strong>نصيحة محترف:</strong> قيّم جودة الجمهور من سلوكه بعد المشاهدة أو الزيارة، وليس من رخص المشاهدات فقط. احتفظ بأفضل المبدعين الإعلانيين واختبر زوايا جديدة تدريجياً.</div>
+    </section>
+
+    <!-- WARM -->
+    <section class="tab-content" id="panel-warm" role="tabpanel" aria-labelledby="tab-warm" data-panel="warm">
+      <div class="stage-banner banner-warm"><div><p class="eyebrow" style="color:#FFEDD5">STAGE 02 · CONSIDERATION</p><h2>الجمهور الدافئ — Warm</h2><p>أشخاص يعرفون نشاطك أو شاهدوا محتواك وتفاعلوا معه، لكن لم تظهر منهم نية شراء مؤكدة بعد.</p></div><div class="stage-emoji">🧡</div></div>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--warm)"><h3>🎯 امتى تستخدمه؟</h3><p>بعد بناء محتوى وزيارات وتفاعلات كافية. وظيفته تقوية الثقة ونقل الشخص من مجرد المعرفة إلى التفكير الجاد في الحل.</p></div>
+        <div class="content-card" style="--accent:var(--warm)"><h3>💬 الرسالة الصح: ادي واطلب</h3><p>اعرض فائدة أو حالة استخدام + إثبات اجتماعي + CTA متوسط مثل: اطلب الكتالوج / شاهد الأعمال / اسأل عن التفاصيل.</p></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>مصادر الجمهور الدافئ</h2><p>اختَر المصدر حسب نوع التفاعل، وحدد مدة مناسبة لحجم الجمهور.</p></div><span class="stage-pill warm">WARM AUDIENCES</span></div>
+        <div class="grid three">
+          <article class="card audience-card card-accent" style="--accent:var(--warm);--tint:#FFEDD5"><span class="mini-tag">نافذة مقترحة 30–90 يوم</span><h3>مشاهدة 50% من فيديو</h3><p>شاهد جزءاً معتبراً من المحتوى، لكنه قد يحتاج إثباتاً إضافياً أو شرحاً أكثر.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--warm);--tint:#FFEDD5"><span class="mini-tag">نافذة مقترحة 30–90 يوم</span><h3>تفاعل مع صفحة فيسبوك</h3><p>تفاعل مع منشور أو إعلان أو الصفحة، دون انتقال واضح لطلب أو شراء.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--warm);--tint:#FFEDD5"><span class="mini-tag">نافذة مقترحة 30–60 يوم</span><h3>فتح نموذج Instant Form</h3><p>فتح النموذج ولم يرسله؛ اختبر رسالة توضح الفائدة وتزيل سبب التردد.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--warm);--tint:#FFEDD5"><span class="mini-tag">نافذة مقترحة 30–90 يوم</span><h3>تفاعل مع إنستجرام</h3><p>زار البروفايل أو تفاعل مع الحساب أو المحتوى وفق خيارات الجمهور المتاحة.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--warm);--tint:#FFEDD5"><span class="mini-tag">نافذة مقترحة 14–60 يوم</span><h3>بدأ محادثة أو أرسل رسالة</h3><p>تواصل مع النشاط، لكن لم يتقدم إلى طلب مؤهل أو خطوة شراء واضحة.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--warm);--tint:#FFEDD5"><span class="mini-tag">نافذة مقترحة 30–90 يوم</span><h3>تفاعل مع Event أو ويبينار</h3><p>سجل أو حضر فعالية؛ قد يحتاج متابعة بالمحتوى المتخصص أو دليل تطبيقي.</p></article>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-head"><div><h2>تسلسل فيديوهات مقترح</h2><p>ابنِ الثقة خطوة بخطوة بدلاً من تكرار الإعلان نفسه.</p></div></div>
+        <div class="timeline">
+          <article class="timeline-item"><h3>فيديو تعليمي قصير</h3><p>اشرح المشكلة أو الفروقات أو أخطاء الاختيار، وقدّم معلومة قابلة للاستخدام.</p></article>
+          <article class="timeline-item"><h3>فيديو إثبات</h3><p>اعرض مشروعاً منفذاً أو شهادة عميل أو تجربة موثقة بإذن صاحبها.</p></article>
+          <article class="timeline-item"><h3>فيديو توضيحي</h3><p>اشرح طريقة الاختيار أو التركيب أو المواصفات أو الضمان.</p></article>
+          <article class="timeline-item"><h3>دعوة لخطوة تالية</h3><p>اطلب من المهتم مشاهدة الكتالوج أو حجز استشارة أو طلب عرض سعر.</p></article>
+        </div>
+        <p class="muted" style="font-size:12px;margin:11px 0 0">هذا تسلسل إبداعي مقترح، وليس إعداداً تلقائياً مضموناً داخل مدير الإعلانات.</p>
+      </section>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--warm)"><h3>🚫 الاستبعادات</h3><p>استبعد الساخن والعملاء الحاليين في حملات اكتساب العملاء، وانقل أصحاب النية العالية إلى حملة ساخنة حتى يحصلوا على رسالة مناسبة.</p></div>
+        <div class="content-card" style="--accent:var(--warm)"><h3>⚠️ أخطاء شائعة</h3><ul><li>إعادة نفس فيديو البارد دون تطوير الرسالة.</li><li>تكرار الإعلان حتى إرهاق الجمهور.</li><li>طلب شراء قوي مبكراً.</li><li>إهمال Frequency وعدم تحديث المحتوى.</li></ul></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>مؤشرات الأداء KPI</h2><p>راقب جودة التفاعل والتحول إلى خطوة فعلية.</p></div></div>
+        <div class="kpi-grid"><div class="kpi-item"><strong>CTR</strong><span>نسبة النقر.</span></div><div class="kpi-item"><strong>Landing Page Views</strong><span>زيارات صفحة الهبوط التي تم تحميلها.</span></div><div class="kpi-item"><strong>Cost per Lead / Message</strong><span>تكلفة بدء محادثة أو إرسال نموذج.</span></div><div class="kpi-item"><strong>Form Completion</strong><span>نسبة إكمال النموذج بعد فتحه.</span></div><div class="kpi-item"><strong>Frequency</strong><span>تكرار الظهور على الجمهور.</span></div><div class="kpi-item"><strong>Lead Quality</strong><span>مدى ملاءمة الرسائل والعملاء المحتملين.</span></div></div>
+      </section>
+      <div class="small-note"><strong>نصيحة:</strong> قسّم الدافئ حسب نوع التفاعل. لا تجمع مشاهدي الفيديو مع أصحاب الرسائل في مجموعة واحدة عندما تختلف نيتهم واحتياجاتهم.</div>
+    </section>
+
+    <!-- HOT -->
+    <section class="tab-content" id="panel-hot" role="tabpanel" aria-labelledby="tab-hot" data-panel="hot">
+      <div class="stage-banner banner-hot"><div><p class="eyebrow" style="color:#FEE2E2">STAGE 03 · CONVERSION</p><h2>الجمهور الساخن — Hot</h2><p>زائر أو متفاعل أظهر نية شراء واضحة أو طلب معلومات وسعراً، لكنه لم يشترِ بعد.</p></div><div class="stage-emoji">🔥</div></div>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--hot)"><h3>🎯 امتى تستخدمه؟</h3><p>عند وجود زيارات صفحات منتجات، أو سلات شراء، أو محادثات مؤهلة، أو طلبات عروض أسعار لم تتحول إلى بيع.</p></div>
+        <div class="content-card" style="--accent:var(--hot)"><h3>💬 الرسالة الصح: اكسر الاعتراض</h3><p>جاوب السعر والمواصفات والضمان والتوصيل ومدة التنفيذ بوضوح، وقدّم خطوة تالية محددة مثل اتصال أو معاينة أو طلب عرض سعر.</p></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>الجماهير الساخنة</h2><p>النية أقوى من مجرد التفاعل؛ راجع الأحداث التي تسجلها فعلياً.</p></div><span class="stage-pill hot">HIGH INTENT</span></div>
+        <div class="grid three">
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">نية منتج</span><h3>زار صفحة منتج محددة</h3><p>اطلع على تفاصيل منتج معين؛ استخدم رسالة مرتبطة بالمنتج نفسه.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">نية شراء مرتفعة</span><h3>Add to Cart</h3><p>أضاف منتجاً إلى السلة ولم يكمل؛ عالج اعتراض السعر أو الشحن أو الدفع.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">نوافذ زمنية</span><h3>زار الموقع 3 / 7 / 14 / 28 يوماً</h3><p>كلما قصرت النافذة كان التفاعل أحدث غالباً؛ افصل الشرائح لتتحكم في الرسالة.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">تفاعل عميق</span><h3>أعلى 10% من وقت التصفح</h3><p>مفيد إذا كان المصدر والأداة يدعمان التقسيم بهذا الشكل، وإلا استخدم حدثاً بديلاً.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">اهتمام متكرر</span><h3>زار صفحة المنتج أكثر من مرة</h3><p>تكرار الزيارة قد يشير إلى مقارنة أو تردد؛ قدم إجابة لا مجرد خصم.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">شريحة اختيارية</span><h3>مستخدمو الهاتف</h3><p>استخدمها فقط إذا كانت أدوات الاستهداف والقياس المتاحة تسمح بها بشكل موثوق.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">طلب مباشر</span><h3>ويبينار أو طلب عرض سعر</h3><p>مسجل أو حاضر ويبينار، أو طلب عرض سعر ولم يكمل الخطوة التالية.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">Checkout</span><h3>Initiate Checkout</h3><p>بدأ عملية الشراء ولم يتم تسجيل Purchase؛ تحقق من دقة الأحداث والاستبعادات.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--hot);--tint:#FEE2E2"><span class="mini-tag">نية تحتاج متابعة</span><h3>محادثة مؤهلة</h3><p>سأل عن السعر أو التوريد أو التنفيذ بجدية ولم يصل إلى قرار نهائي.</p></article>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-head"><div><h2>تقسيمة 3 حملات حسب حداثة النية</h2><p>حافظ على شرائح غير متداخلة قدر الإمكان مع استبعادات متبادلة.</p></div></div>
+        <div class="campaign-grid">
+          <article class="campaign-card" style="border-top:5px solid #EF4444"><span class="campaign-days">3–7 أيام</span><h3>أعلى نية — ميزانية أكبر نسبياً</h3><p>رسالة مباشرة: السعر، توفر المنتج، الضمان، وسيلة تواصل سريعة، أو استكمال الطلب.</p></article>
+          <article class="campaign-card" style="border-top:5px solid #F97316"><span class="campaign-days" style="background:#FFEDD5;color:#C2410C">7–14 يوم</span><h3>نية متوسطة — زاوية مختلفة</h3><p>استخدم مقارنة، حالة استخدام، شهادة موثقة، أو إجابة عن اعتراض شائع.</p></article>
+          <article class="campaign-card" style="border-top:5px solid #B91C1C"><span class="campaign-days" style="background:#F1F5F9;color:#475569">14–28 يوم</span><h3>نية أقدم — ميزانية صغيرة</h3><p>اختبر رسالة أخيرة دون رفع التكرار أو تقديم خصم يضر بهامش الربح.</p></article>
+        </div>
+      </section>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--hot)"><h3>🛍️ DPA — Dynamic Product Ads</h3><p>يمكن عرض نفس المنتج الذي شاهده الشخص أو منتجات مشابهة من الكتالوج تلقائياً، بشرط وجود Pixel/كتالوج وأحداث صحيحة وربط المنتجات بها. لا تعمل الميزة بمجرد كتابة اسمها دون إعداد تقني.</p></div>
+        <div class="content-card" style="--accent:var(--hot)"><h3>🚫 الاستبعادات</h3><ul><li>استبعد المشترين الحاليين من حملات الاستحواذ.</li><li>استبعد من قام بالفعل بالتحويل المطلوب.</li><li>استبعد الشرائح الزمنية الأحدث من الأقدم لتقليل التداخل.</li></ul></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>أخطاء ومؤشرات قياس الجمهور الساخن</h2><p>الإعلان وحده لا يغلق البيع؛ المتابعة جزء من التجربة.</p></div></div>
+        <div class="grid two">
+          <div class="list-card"><h3>⚠️ أخطاء شائعة</h3><ul><li>تكرار الإعلان كثيراً حتى يمل الجمهور.</li><li>خصم بلا حساب هامش الربح.</li><li>التأخر في الرد على الرسائل.</li><li>عدم معالجة اعتراض السعر أو المواصفات.</li><li>إهمال تتبع التحويل الفعلي.</li></ul></div>
+          <div class="list-card"><h3>📊 KPIs</h3><div class="kpi-grid"><div class="kpi-item"><strong>Purchases / Leads</strong><span>عدد المشتريات أو العملاء المحتملين.</span></div><div class="kpi-item"><strong>CPA</strong><span>تكلفة الحصول على نتيجة.</span></div><div class="kpi-item"><strong>ROAS</strong><span>العائد على الإنفاق الإعلاني.</span></div><div class="kpi-item"><strong>Add to Cart</strong><span>الإضافة إلى السلة.</span></div><div class="kpi-item"><strong>Conversion Rate</strong><span>نسبة إتمام الإجراء.</span></div><div class="kpi-item"><strong>Frequency</strong><span>متوسط مرات الظهور.</span></div></div><p style="margin-top:10px;color:#64748B;font-size:13px">راجع أيضاً جودة المبيعات وقيمة الطلب الفعلية.</p></div>
+        </div>
+      </section>
+      <div class="small-note"><strong>نصيحة محترف:</strong> سرعة متابعة العميل الساخن جزء من الإعلان. اربط التنبيه بفريق المبيعات، وسجل سبب عدم الإغلاق: سعر، مواصفات، توقيت، مخزون، أو متابعة.</div>
+    </section>
+
+    <!-- EXISTING -->
+    <section class="tab-content" id="panel-existing" role="tabpanel" aria-labelledby="tab-existing" data-panel="existing">
+      <div class="stage-banner banner-ex"><div><p class="eyebrow" style="color:#D1FAE5">STAGE 04 · LOYALTY & RETENTION</p><h2>العملاء الحاليون — Existing</h2><p>من سبق له الشراء أو عميل مثبت في CRM. الهدف زيادة قيمة العلاقة، لا إزعاجه بعروض غير مناسبة.</p></div><div class="stage-emoji">💚</div></div>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--ex)"><h3>🎯 امتى تستخدمه؟</h3><p>بعد الشراء، أو قرب دورة إعادة الطلب، أو عند إطلاق منتج مكمل أو تجديد، أو لمكافأة العميل المميز.</p></div>
+        <div class="content-card" style="--accent:var(--ex)"><h3>💬 الرسالة الصح</h3><p>ابدأ بالشكر والخدمة والمعلومة. بعد ذلك اعرض منتجاً مكملاً أو تجديداً في توقيت منطقي، مع توضيح سبب ملاءمته للعميل.</p></div>
+      </div>
+      <section class="section">
+        <div class="section-head"><div><h2>شرائح العملاء الحاليين</h2><p>قسّم قائمة العملاء بالتاريخ والمنتجات والقيمة ودورة الشراء.</p></div><span class="stage-pill ex">CUSTOMER LISTS</span></div>
+        <div class="grid four">
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">آخر 30 يوم</span><h3>اشترى خلال 30 يوم</h3><p>شكر وتعليمات استخدام وخدمة ما بعد البيع. لا تكرر بيع نفس المنتج فوراً إلا إذا تسمح دورة استهلاكه.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">آخر 60 يوم</span><h3>اشترى خلال 60 يوم</h3><p>اعرض مكملاً مناسباً أو تواصل لقياس الرضا وحل أي مشكلة.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">آخر 90 يوم</span><h3>اشترى خلال 90 يوم</h3><p>اختبر إعادة الشراء أو منتجاً مرتبطاً حسب دورة الاستهلاك الفعلية.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">Cross-sell / Upsell</span><h3>اشترى X — اعرض Y</h3><p>منتج مكمل أو ترقية ذات صلة، مع توضيح الفائدة وليس مجرد إضافة منتج.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">توقيت متوقع</span><h3>دورة إعادة الشراء</h3><p>ذكّر العميل في التوقيت المتوقع للاستهلاك أو إعادة الطلب بناءً على بياناتك.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">خدمة مستمرة</span><h3>تجديد أو صيانة</h3><p>رسائل حسب الضمان أو المنتج أو العقد، وبما يتناسب مع مسؤولية الخدمة.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">إطلاق جديد</span><h3>منتج جديد</h3><p>إطلاق موجّه للعملاء الذين تناسبهم الفئة الجديدة بناءً على مشترياتهم السابقة.</p></article>
+          <article class="card audience-card card-accent" style="--accent:var(--ex);--tint:#D1FAE5"><span class="mini-tag">قيمة مرتفعة</span><h3>VIP</h3><p>مزايا وخدمة أولوية وعروض خاصة وتواصل شخصي محترم.</p></article>
+        </div>
+      </section>
+      <section class="section">
+        <div class="section-head"><div><h2>أمثلة رسائل للعملاء</h2><p>استخدمها كأفكار وعدّلها على المنتج والعلاقة الحقيقية.</p></div></div>
+        <div class="grid three">
+          <article class="card card-accent" style="--accent:var(--ex)"><h3>💚 شكر بعد الشراء</h3><p>«شكراً لثقتك فينا. يهمنا نعرف تجربتك مع المنتج، ولو محتاج أي مساعدة في الاستخدام أو التركيب فريقنا موجود».</p></article>
+          <article class="card card-accent" style="--accent:var(--ex)"><h3>🔗 منتج مكمل</h3><p>«بما إنك اشتريت X، ممكن يكون Y مناسباً لاحتياجك لأنه يساعدك في …» مع ذكر سبب حقيقي للترشيح.</p></article>
+          <article class="card card-accent" style="--accent:var(--ex)"><h3>🎁 عرض تقدير 15%</h3><p>خصم 15% للعملاء السابقين كفكرة اختبارية، بعد حساب هامش الربح والتأكد من عدم تعارضه مع عروض أخرى.</p></article>
+        </div>
+      </section>
+      <div class="grid two">
+        <div class="content-card" style="--accent:var(--ex)"><h3>🚫 الاستبعادات</h3><ul><li>استبعد من اشترى المنتج نفسه مؤخراً من إعلانات إعادة بيع المنتج ذاته.</li><li>استبعد غير الملائم للمنتج أو من لا يملك موافقة تسويقية لازمة.</li><li>حدّث القوائم دورياً لتجنب عرض رسائل قديمة.</li></ul></div>
+        <div class="content-card" style="--accent:var(--ex)"><h3>📊 مؤشرات القياس KPI</h3><div class="kpi-grid"><div class="kpi-item"><strong>Repeat Purchase</strong><span>معدل إعادة الشراء.</span></div><div class="kpi-item"><strong>AOV</strong><span>متوسط قيمة الطلب.</span></div><div class="kpi-item"><strong>LTV</strong><span>القيمة المتوقعة للعميل عبر العلاقة.</span></div><div class="kpi-item"><strong>Revenue / Customer</strong><span>الإيراد لكل عميل.</span></div><div class="kpi-item"><strong>Unsubscribe</strong><span>معدل إلغاء الاشتراك.</span></div><div class="kpi-item"><strong>Complaints</strong><span>معدل الشكاوى.</span></div></div></div>
+      </div>
+      <div class="small-note"><strong>نصيحة:</strong> العميل السابق مش مجرد جمهور لإعادة الاستهداف. ابدأ بالشكر والخدمة والمعلومة، ثم اعرض المكمل المناسب في توقيت منطقي.</div>
+    </section>
+
+    <!-- BUDGET -->
+    <section class="tab-content" id="panel-budget" role="tabpanel" aria-labelledby="tab-budget" data-panel="budget">
+      <div class="page-intro"><div><p class="eyebrow">SMART BUDGET PLANNER</p><h2 class="page-title">حاسبة الميزانية الإعلانية</h2><p class="page-subtitle">غيّر الأرقام وشاهد توزيع الإنفاق والسيناريو الحسابي يتحدث فوراً.</p></div><span class="stage-pill" style="background:#EDE9FE;color:#6D28D9">🟣 الميزانية</span></div>
+      <div class="calculator-layout">
+        <div class="input-panel">
+          <h3>أدخل بياناتك</h3>
+          <div class="field"><label for="monthlyBudget">إجمالي ميزانية الشهر <small>جنيه مصري</small></label><div class="input-shell"><input id="monthlyBudget" type="number" min="0" step="100" value="10000" inputmode="decimal"><span class="input-unit">ج.م</span></div></div>
+          <div class="field"><label for="productPrice">سعر المنتج <small>جنيه مصري</small></label><div class="input-shell"><input id="productPrice" type="number" min="0" step="50" value="3500" inputmode="decimal"><span class="input-unit">ج.م</span></div></div>
+          <div class="field"><label for="hotConversion">نسبة تحويل الجمهور الساخن <small>من 0% إلى 100%</small></label><div class="input-shell"><input id="hotConversion" type="number" min="0" max="100" step="0.5" value="5" inputmode="decimal"><span class="input-unit">%</span></div></div>
+          <div class="assumption">افتراض المحاكاة: تكلفة اكتساب العميل المستهدفة = 20% من سعر المنتج، وخط أساس تحويل الجمهور الساخن = 5%. غيّر الأرقام وفق بياناتك الفعلية عند توفرها.</div>
+        </div>
+        <div class="calc-results">
+          <div class="allocation-panel">
+            <h3>توزيع الميزانية المقترح</h3>
+            <div class="allocation-row" style="--bar:var(--cold)"><div class="allocation-top"><div class="allocation-name"><i></i>بارد Cold <b>40%</b></div><div class="allocation-values" id="coldValues">4,000 ج.م<small>133.33 ج.م يومياً</small></div></div><div class="progress-track"><div class="fill" id="coldFill" style="--fill:var(--cold);width:40%"></div></div></div>
+            <div class="allocation-row" style="--bar:var(--warm)"><div class="allocation-top"><div class="allocation-name"><i></i>دافئ Warm <b>25%</b></div><div class="allocation-values" id="warmValues">2,500 ج.م<small>83.33 ج.م يومياً</small></div></div><div class="progress-track"><div class="fill" id="warmFill" style="--fill:var(--warm);width:25%"></div></div></div>
+            <div class="allocation-row" style="--bar:var(--hot)"><div class="allocation-top"><div class="allocation-name"><i></i>ساخن Hot <b>25%</b></div><div class="allocation-values" id="hotValues">2,500 ج.م<small>83.33 ج.م يومياً</small></div></div><div class="progress-track"><div class="fill" id="hotFill" style="--fill:var(--hot);width:25%"></div></div></div>
+            <div class="allocation-row" style="--bar:var(--ex)"><div class="allocation-top"><div class="allocation-name"><i></i>عملاء Existing <b>10%</b></div><div class="allocation-values" id="exValues">1,000 ج.م<small>33.33 ج.م يومياً</small></div></div><div class="progress-track"><div class="fill" id="exFill" style="--fill:var(--ex);width:10%"></div></div></div>
+            <div class="daily-total"><span>إجمالي الميزانية اليومية</span><strong id="dailyTotal">333.33 ج.م</strong></div>
+          </div>
+          <div>
+            <div class="section-head" style="margin:0 0 10px;color:#fff"><div><h2 style="color:#fff;font-size:19px">النتيجة المتوقعة — سيناريو توضيحي</h2><p style="color:#CBD5E1">محاكاة حسابية وليست توقعاً مضموناً للمبيعات.</p></div></div>
+            <div class="forecast-grid">
+              <div class="forecast-card"><span>عدد المشتريات التقديري</span><strong id="estimatedPurchases">3.6</strong></div>
+              <div class="forecast-card"><span>الإيراد المتوقع</span><strong id="estimatedRevenue">12,500 ج.م</strong></div>
+              <div class="forecast-card"><span>ROAS تقديري</span><strong id="estimatedRoas">1.25x</strong></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="small-note" style="margin-top:17px"><strong>مهم:</strong> افتراض CPA في هذه الحاسبة يساوي 20% من سعر المنتج، وعدد المشتريات يُحسب من ميزانية الساخن ونسبة التحويل التي أدخلتها مقارنة بخط أساس 5%. استبدل افتراض CPA ببيانات حملاتك الفعلية؛ نتائج Meta تختلف حسب القطاع والموسم وجودة الإعلان والصفحة والمبيعات والمتابعة. قد تكون النتائج الفعلية أعلى أو أقل كثيراً.</div>
+    </section>
+
+    <!-- PLAN -->
+    <section class="tab-content" id="panel-plan" role="tabpanel" aria-labelledby="tab-plan" data-panel="plan">
+      <div class="page-intro"><div><p class="eyebrow">30-DAY EXECUTION ROADMAP</p><h2 class="page-title">خطة تنفيذ 30 يوم</h2><p class="page-subtitle">حوّل الاستراتيجية إلى مهام قابلة للمتابعة، وعلّم كل مهمة بعد إنجازها.</p></div><span class="stage-pill" style="background:#CCFBF1;color:#0F766E">🟢 خطة عملية</span></div>
+      <div class="plan-summary">
+        <div class="plan-summary-top"><h3>تقدم تنفيذ الخطة</h3><div class="percent" id="planPercent">0%</div></div>
+        <div class="plan-progress"><div class="fill" id="planFill" style="width:0%"></div></div>
+        <div class="plan-counter" id="planCounter">مكتمل 0 من 18 مهمة</div>
+      </div>
+      <div class="plan-actions"><button class="btn danger" type="button" id="resetPlanBtn">↺ إعادة تعيين التقدم</button></div>
+      <section class="week-block" style="border-top-color:#2563EB">
+        <div class="week-title"><h3>الأسبوع الأول — تأسيس</h3><span>الأيام 1–7</span></div>
+        <div class="task-list">
+          <div class="task"><input id="task1" type="checkbox" data-task="1"><label for="task1"><strong>1. تحديد المنتج والعميل المثالي وعرض القيمة</strong><small>اكتب من تبيع له، ما المشكلة التي تحلها، ولماذا يختارك. المخرج: وصف واضح للعرض والعميل.</small></label></div>
+          <div class="task"><input id="task2" type="checkbox" data-task="2"><label for="task2"><strong>2. مراجعة Pixel وConversions API والأحداث</strong><small>تحقق من ViewContent وLead وPurchase واختبر تسجيل الأحداث. المخرج: قياس موثوق قدر الإمكان.</small></label></div>
+          <div class="task"><input id="task3" type="checkbox" data-task="3"><label for="task3"><strong>3. تنظيم الكتالوج وصفحات الهبوط والتواصل</strong><small>راجع بيانات المنتجات والصور والسعر ووسائل التواصل. المخرج: رحلة واضحة من الإعلان إلى الاستفسار أو الشراء.</small></label></div>
+          <div class="task"><input id="task4" type="checkbox" data-task="4"><label for="task4"><strong>4. جمع بيانات العملاء الحاليين وتنظيفها</strong><small>وحّد الأسماء والأرقام وقسّم العملاء، وتأكد من وجود حق استخدام وموافقة مناسبة للبيانات التسويقية.</small></label></div>
+          <div class="task"><input id="task5" type="checkbox" data-task="5"><label for="task5"><strong>5. إنشاء الجماهير المخصصة ومصادر Lookalike</strong><small>أنشئ جماهير الزوار والتفاعل والعملاء ومصادر المشابهة المتاحة. المخرج: خريطة جماهير واضحة.</small></label></div>
+        </div>
+      </section>
+      <section class="week-block" style="border-top-color:#2563EB">
+        <div class="week-title"><h3>الأسبوع الثاني — إطلاق</h3><span>الأيام 8–14</span></div>
+        <div class="task-list">
+          <div class="task"><input id="task6" type="checkbox" data-task="6"><label for="task6"><strong>6. إنتاج 2–3 فيديوهات تعليمية للجمهور البارد</strong><small>كل فيديو يعالج مشكلة أو سؤالاً مختلفاً. المخرج: مواد إعلانية قابلة للاختبار.</small></label></div>
+          <div class="task"><input id="task7" type="checkbox" data-task="7"><label for="task7"><strong>7. إعداد حملات Cold مع الاستبعادات الصحيحة</strong><small>افصل مصادر الجمهور قدر الإمكان واستبعد الدافئ والساخن والعملاء من الاكتساب.</small></label></div>
+          <div class="task"><input id="task8" type="checkbox" data-task="8"><label for="task8"><strong>8. إعداد جماهير Warm ونشر محتوى إثبات اجتماعي</strong><small>جهّز محتوى أعمال ومشروعات وتجارب موثقة ومناسبة للجمهور المتفاعل.</small></label></div>
+          <div class="task"><input id="task9" type="checkbox" data-task="9"><label for="task9"><strong>9. إعداد حملات Hot بنوافذ 3 / 7 / 14 / 28 يوم</strong><small>قسّم النوافذ واستبعد الشرائح الأحدث من الأقدم لتقليل التداخل.</small></label></div>
+          <div class="task"><input id="task10" type="checkbox" data-task="10"><label for="task10"><strong>10. كتابة 3 نسخ إعلانية مختلفة لكل مرحلة</strong><small>اكتب نسخة للقيمة، ونسخة للإثبات، ونسخة لمعالجة الاعتراض بحسب المرحلة.</small></label></div>
+        </div>
+      </section>
+      <section class="week-block" style="border-top-color:#F97316">
+        <div class="week-title"><h3>الأسبوع الثالث — تحسين</h3><span>الأيام 15–21</span></div>
+        <div class="task-list">
+          <div class="task"><input id="task11" type="checkbox" data-task="11"><label for="task11"><strong>11. مراجعة CPM وCTR وCPC وجودة الجمهور</strong><small>قارن كل مجموعة بهدفها، ولا تستخدم مؤشراً واحداً للحكم على الأداء.</small></label></div>
+          <div class="task"><input id="task12" type="checkbox" data-task="12"><label for="task12"><strong>12. إيقاف الإعلانات الضعيفة بعد حجم بيانات كافٍ</strong><small>اتخذ القرار بناءً على إنفاق ونتائج كافية، لا بسبب تذبذب يوم واحد.</small></label></div>
+          <div class="task"><input id="task13" type="checkbox" data-task="13"><label for="task13"><strong>13. اختبار Hook أو كرييتف جديد</strong><small>غيّر عنصراً أو زاوية واحدة في كل اختبار حتى تفهم سبب التحسن أو التراجع.</small></label></div>
+          <div class="task"><input id="task14" type="checkbox" data-task="14"><label for="task14"><strong>14. مراجعة سرعة الرد وجودة العملاء وأسباب الرفض</strong><small>اجمع ملاحظات المبيعات وصنّف أسباب عدم الإغلاق لتطوير الرسائل والاستهداف.</small></label></div>
+        </div>
+      </section>
+      <section class="week-block" style="border-top-color:#0EA5A5">
+        <div class="week-title"><h3>الأسبوع الرابع — توسع</h3><span>الأيام 22–30</span></div>
+        <div class="task-list">
+          <div class="task"><input id="task15" type="checkbox" data-task="15"><label for="task15"><strong>15. نقل الميزانية تدريجياً إلى الإعلانات الفائزة</strong><small>راقب CPA وROAS والهامش والقدرة التشغيلية قبل زيادة الإنفاق.</small></label></div>
+          <div class="task"><input id="task16" type="checkbox" data-task="16"><label for="task16"><strong>16. إنشاء حملات إعادة شراء وCross-sell</strong><small>قسّم العملاء حسب تاريخ الشراء والمنتجات، واعرض مكملاً مناسباً في توقيته.</small></label></div>
+          <div class="task"><input id="task17" type="checkbox" data-task="17"><label for="task17"><strong>17. توسيع الجمهور أو الميزانية تدريجياً</strong><small>راقب Frequency وجودة النتائج، وتأكد من عدم إرهاق الجمهور أو تراجع الهامش.</small></label></div>
+          <div class="task"><input id="task18" type="checkbox" data-task="18"><label for="task18"><strong>18. إعداد تقرير 30 يوم وخطة الشهر التالي</strong><small>وثّق ما نجح وما لم ينجح والميزانية والنتائج وأسبابها. المخرج: قرارات واضحة للشهر التالي.</small></label></div>
+        </div>
+      </section>
+      <div class="small-note">يتم حفظ حالة المهام تلقائياً على نفس المتصفح والجهاز باستخدام التخزين المحلي. عند فتح الموقع من جهاز آخر لن تنتقل العلامات إليه تلقائياً.</div>
+    </section>
+  </main>
+
+  <footer class="footer">تم إعداد <strong>Audience Funnel Masterplan</strong> كدليل تخطيطي وتعليمي. راجع إعدادات وأدوات مدير الإعلانات المتاحة في حسابك قبل التنفيذ.</footer>
+
+  <div class="modal-backdrop" id="resetModal" role="dialog" aria-modal="true" aria-labelledby="resetTitle">
+    <div class="modal"><h3 id="resetTitle">إعادة تعيين تقدم الخطة؟</h3><p>سيتم إلغاء تحديد جميع المهام الـ18 وحفظ التقدم من البداية. هل أنت متأكد؟</p><div class="modal-actions"><button class="btn danger" type="button" id="confirmReset">نعم، أعد التعيين</button><button class="btn secondary" type="button" id="cancelReset">إلغاء</button></div></div>
+  </div>
+  <div class="toast" id="toast" role="status" aria-live="polite">تم حفظ تقدمك تلقائياً ✓</div>
+
+  <script>
+    (function () {
+      const tabButtons = Array.from(document.querySelectorAll('.tab-btn'));
+      const panels = Array.from(document.querySelectorAll('.tab-content'));
+      function activateTab(name) {
+        const target = panels.find(panel => panel.dataset.panel === name);
+        if (!target) return;
+        tabButtons.forEach(btn => {
+          const active = btn.dataset.tab === name;
+          btn.setAttribute('aria-selected', String(active));
+          btn.tabIndex = active ? 0 : -1;
+        });
+        panels.forEach(panel => {
+          const active = panel === target;
+          panel.classList.toggle('active', active);
+          panel.hidden = !active;
+        });
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+      tabButtons.forEach((btn, index) => {
+        btn.addEventListener('click', () => activateTab(btn.dataset.tab));
+        btn.addEventListener('keydown', (event) => {
+          let next = index;
+          if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') next = (index + 1) % tabButtons.length;
+          else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') next = (index - 1 + tabButtons.length) % tabButtons.length;
+          else if (event.key === 'Home') next = 0;
+          else if (event.key === 'End') next = tabButtons.length - 1;
+          else return;
+          event.preventDefault();
+          tabButtons[next].focus();
+          activateTab(tabButtons[next].dataset.tab);
+        });
+      });
+      document.querySelectorAll('[data-go]').forEach(btn => btn.addEventListener('click', () => activateTab(btn.dataset.go)));
+
+      // Budget calculator: immediate recalculation on every input.
+      const money = value => new Intl.NumberFormat('ar-EG', { maximumFractionDigits: 2 }).format(Number.isFinite(value) ? value : 0) + ' ج.م';
+      const num = value => Number.isFinite(value) ? value : 0;
+      const budgetInput = document.getElementById('monthlyBudget');
+      const priceInput = document.getElementById('productPrice');
+      const conversionInput = document.getElementById('hotConversion');
+      function safeNumber(input, min, max) {
+        const n = Number(input.value);
+        if (!Number.isFinite(n)) return 0;
+        return Math.min(max, Math.max(min, n));
+      }
+      function updateCalculator() {
+        const total = safeNumber(budgetInput, 0, 1e12);
+        const price = safeNumber(priceInput, 0, 1e12);
+        const conv = safeNumber(conversionInput, 0, 100);
+        conversionInput.value = String(conv);
+        const allocations = [
+          { key: 'cold', share: .40 },
+          { key: 'warm', share: .25 },
+          { key: 'hot', share: .25 },
+          { key: 'ex', share: .10 }
+        ];
+        allocations.forEach(item => {
+          const month = total * item.share;
+          const day = month / 30;
+          document.getElementById(item.key + 'Values').innerHTML = money(month) + '<small>' + money(day) + ' يومياً</small>';
+          document.getElementById(item.key + 'Fill').style.width = (item.share * 100) + '%';
+        });
+        document.getElementById('dailyTotal').textContent = money(total / 30);
+        const assumedCPA = price * .20;
+        const hotBudget = total * .25;
+        const purchases = assumedCPA > 0 ? (hotBudget / assumedCPA) * (conv / 5) : 0;
+        const revenue = purchases * price;
+        const roas = total > 0 ? revenue / total : 0;
+        document.getElementById('estimatedPurchases').textContent = num(purchases).toLocaleString('en-US', { maximumFractionDigits: 1, minimumFractionDigits: 1 });
+        document.getElementById('estimatedRevenue').textContent = money(revenue);
+        document.getElementById('estimatedRoas').textContent = num(roas).toLocaleString('en-US', { maximumFractionDigits: 2, minimumFractionDigits: 2 }) + 'x';
+      }
+      [budgetInput, priceInput, conversionInput].forEach(input => input.addEventListener('input', updateCalculator));
+      updateCalculator();
+
+      // 30-day checklist persistence.
+      const storageKey = 'audienceFunnelMasterplanTasks_v1';
+      const tasks = Array.from(document.querySelectorAll('[data-task]'));
+      const percent = document.getElementById('planPercent');
+      const fill = document.getElementById('planFill');
+      const counter = document.getElementById('planCounter');
+      const toast = document.getElementById('toast');
+      let toastTimer;
+      function showToast() {
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 1600);
+      }
+      function saveTasks() {
+        const state = {};
+        tasks.forEach(task => state[task.dataset.task] = task.checked);
+        try { localStorage.setItem(storageKey, JSON.stringify(state)); } catch (e) { /* Browser storage may be disabled. */ }
+      }
+      function updateProgress() {
+        const done = tasks.filter(task => task.checked).length;
+        const pct = Math.round(done / tasks.length * 100);
+        percent.textContent = pct + '%';
+        fill.style.width = pct + '%';
+        counter.textContent = 'مكتمل ' + done + ' من ' + tasks.length + ' مهمة';
+        tasks.forEach(task => task.closest('.task').classList.toggle('done', task.checked));
+      }
+      function loadTasks() {
+        try {
+          const saved = JSON.parse(localStorage.getItem(storageKey) || '{}');
+          tasks.forEach(task => task.checked = saved[task.dataset.task] === true);
+        } catch (e) { /* Start with a clean checklist if stored data is unavailable. */ }
+        updateProgress();
+      }
+      tasks.forEach(task => task.addEventListener('change', () => { saveTasks(); updateProgress(); showToast(); }));
+      loadTasks();
+
+      const modal = document.getElementById('resetModal');
+      const resetBtn = document.getElementById('resetPlanBtn');
+      const confirmReset = document.getElementById('confirmReset');
+      const cancelReset = document.getElementById('cancelReset');
+      let previousFocus = null;
+      function openModal() { previousFocus = document.activeElement; modal.classList.add('show'); confirmReset.focus(); }
+      function closeModal() { modal.classList.remove('show'); if (previousFocus) previousFocus.focus(); }
+      resetBtn.addEventListener('click', openModal);
+      cancelReset.addEventListener('click', closeModal);
+      modal.addEventListener('click', event => { if (event.target === modal) closeModal(); });
+      document.addEventListener('keydown', event => { if (event.key === 'Escape' && modal.classList.contains('show')) closeModal(); });
+      confirmReset.addEventListener('click', () => {
+        tasks.forEach(task => task.checked = false);
+        saveTasks();
+        updateProgress();
+        closeModal();
+        showToast();
+      });
+    })();
+  </script>
+</body>
+</html>
